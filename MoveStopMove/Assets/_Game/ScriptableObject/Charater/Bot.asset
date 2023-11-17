@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2953ef0d7cc76194a8c45e2c58a77b21, type: 3}
+  m_Name: Bot
+  m_EditorClassIdentifier: 
+  modelPrefab: {fileID: 4009887874445770338, guid: 1b78399ab226b954690abfa19c159ebc, type: 3}
+  skinScipable: {fileID: 11400000, guid: 376f06eb99486ea459420ff6b22f0106, type: 2}
+  pantScipable: {fileID: 11400000, guid: 7b925ce16b44e314190b8a46a1c5c774, type: 2}
+  hatScipable: {fileID: 11400000, guid: 45366b2988b7e8343a4c36d92d3127e4, type: 2}
+  weaponScipable: {fileID: 11400000, guid: e29fcf1f52786d045bd0e92a2e212534, type: 2}
+  speed: 7

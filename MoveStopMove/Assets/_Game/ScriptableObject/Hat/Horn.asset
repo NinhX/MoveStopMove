@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0b3807b975cfb4ebc4539b548c6e14, type: 3}
+  m_Name: Horn
+  m_EditorClassIdentifier: 
+  type: 7
+  skinName: Horn
+  sprite: {fileID: 21300000, guid: dec8e2974ba49c34e8eec4a82c33650e, type: 3}
+  price: 80
+  hatPrefab: {fileID: 7373022184056354421, guid: 38086b7728977f04eb10f2173ce076dc, type: 3}
