@@ -37,6 +37,7 @@ public class PopupSetting : AbstractPopup
         if (int.TryParse(coin, out int coinInt))
         {
             PlayerInventory.UpdateItem(ItemType.Coin, coinInt);
+            UIManager.Instance.ReloadUI<UIShop>();
         }
     }
 }

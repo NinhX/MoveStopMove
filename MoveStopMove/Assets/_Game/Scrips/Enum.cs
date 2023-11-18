@@ -45,7 +45,8 @@ public enum PantType
     Red = 2,
     QuanBao = 3,
     Anger = 4,
-    ChamBi = 5
+    ChamBi = 5,
+    BatMan = 6
 }
 
 public enum WeaponType

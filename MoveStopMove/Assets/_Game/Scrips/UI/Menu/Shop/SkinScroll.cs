@@ -7,16 +7,17 @@ public class SkinScroll : ScrollView
     private AbstractListSkinScipableObject<SkinType> listSkinScripable;
     private SkinType skinType;
 
-    private void Awake()
-    {
-        listSkinScripable = characterScripable.SkinScipable;
-        AddContentScroll(listSkinScripable.DictSkin, OnSetSkin);
-    }
-
     public override void OnInit(Skin demo)
     {
         base.OnInit(demo);
-        skinType = PlayerInventory.GetItemSelected<SkinType>();
+
+        if (listSkinScripable == null)
+        {
+            listSkinScripable = characterScripable.SkinScipable;
+            AddContentScroll(listSkinScripable.DictSkin, OnSetSkin);
+        }
+
+        PlayerInventory.TryGetItemSelected(out SkinType skinType);
         OnSetSkin(skinType);
     }
 

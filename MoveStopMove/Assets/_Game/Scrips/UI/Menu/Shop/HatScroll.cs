@@ -8,16 +8,17 @@ public class HatScroll : ScrollView
     private AbstractListSkinScipableObject<HatType> listHatScripable;
     private HatType hatType;
 
-    private void Awake()
-    {
-        listHatScripable = characterScripable.HatScripable;
-        AddContentScroll(listHatScripable.DictSkin, OnSetHat);
-    }
-
     public override void OnInit(Skin demo)
     {
         base.OnInit(demo);
-        hatType = PlayerInventory.GetItemSelected<HatType>();
+
+        if (listHatScripable == null)
+        {
+            listHatScripable = characterScripable.HatScripable;
+            AddContentScroll(listHatScripable.DictSkin, OnSetHat);
+        }
+
+        PlayerInventory.TryGetItemSelected(out HatType hatType);
         OnSetHat(hatType);
     }
 

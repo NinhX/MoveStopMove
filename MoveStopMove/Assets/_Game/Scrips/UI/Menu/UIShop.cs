@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIShop : AbstractUICanvas
@@ -9,9 +10,9 @@ public class UIShop : AbstractUICanvas
     [SerializeField] private ScrollView[] scrolls;
     [SerializeField] private ScrollView scrollWeapon;
     [SerializeField] private Text coinText;
-    [SerializeField] private Skin demoPref;
+    [SerializeField] private Demo demoPref;
 
-    private Skin demo;
+    private Skin demoSkin;
     private Dictionary<Type, ScrollView> dictScroll = new();
 
     private void Awake()
@@ -25,15 +26,16 @@ public class UIShop : AbstractUICanvas
 
     public override void OnInit()
     {
-        if (demo == null)
+        if (demoSkin == null)
         {
-            demo = Instantiate(demoPref, new(0, 0, 6), Quaternion.Euler(0, 180, 0));
+            Demo demo = Instantiate(demoPref);
+            demoSkin = demo.Skin;
         }
 
-        scrollWeapon.OnInit(demo);
+        scrollWeapon.OnInit(demoSkin);
         for (int i = 0; i < scrolls.Length; i++)
         {
-            scrolls[i].OnInit(demo);
+            scrolls[i].OnInit(demoSkin);
         }
         ReloadUI();
     }
@@ -47,6 +49,20 @@ public class UIShop : AbstractUICanvas
     {
         StartCoroutine(IEStart());
         ShowScroll<SkinScroll>();
+    }
+
+    public void ShowPopUpSetting()
+    {
+        UIManager.Instance.OpenUI<PopupSetting>();
+    }
+
+    public void PlayGame()
+    {
+        SceneManager.LoadScene(Constant.PLAY_SCENE_NAME);
+    }
+    public void ExitGame()
+    {
+        UIManager.Instance.OpenUI<PopupExit>();
     }
 
     public void BackMenu()
@@ -67,6 +83,16 @@ public class UIShop : AbstractUICanvas
         dictScroll[typeof(T)].gameObject.SetActive(true);
     }
 
+    public void Toggle(GameObject shop)
+    {
+        shop.SetActive(!shop.activeInHierarchy);
+    }
+
+    public void Hidden(GameObject shop)
+    {
+        shop.SetActive(false);
+    }
+
     private void UpdateCoin()
     {
         int coin = PlayerInventory.GetItem(ItemType.Coin).number;
@@ -85,23 +111,5 @@ public class UIShop : AbstractUICanvas
         {
             scroll.Value.gameObject.SetActive(false);
         }
-    }
-    public bool BuyItem<T>(IItemShop<T> itemShop) where T : Enum
-    {
-        bool result = false;
-        if (!PlayerInventory.CheckItemExis(itemShop.GetSkinType()))
-        {
-            int coinPlayer = PlayerInventory.GetItem(ItemType.Coin).number;
-            int priceItem = itemShop.GetPrice();
-
-            if (coinPlayer >= priceItem)
-            {
-                coinPlayer -= priceItem;
-                PlayerInventory.AddOrUpdateItem(ItemType.Coin, coinPlayer);
-                PlayerInventory.AddItem(itemShop.GetSkinType());
-                result = true;
-            }
-        }
-        return result;
     }
 }

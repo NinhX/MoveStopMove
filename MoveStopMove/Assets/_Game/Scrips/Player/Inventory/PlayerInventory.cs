@@ -15,11 +15,19 @@ public static class PlayerInventory
 
     public static void Init()
     {
-        AddItem(ItemType.Coin);
-        AddItem(WeaponType.Hammer);
-        AddItem(SkinType.Green);
-        AddItem(HatType.None);
-        AddItem(PantType.Green);
+        if (!TryGetItemSelected<WeaponType>(out _))
+        {
+            AddItem(ItemType.Coin);
+            AddItem(WeaponType.Hammer);
+            AddItem(SkinType.Green);
+            AddItem(HatType.None);
+            AddItem(PantType.Green);
+
+            SetItemSelected(WeaponType.Hammer);
+            SetItemSelected(SkinType.Green);
+            SetItemSelected(HatType.None);
+            SetItemSelected(PantType.Green);
+        }
     }
 
     public static Dictionary<T, Item<T>> GetAllItem<T>() where T : Enum
@@ -69,10 +77,10 @@ public static class PlayerInventory
         return itemCollection.RemoveItem(type);
     }
 
-    public static T GetItemSelected<T>() where T : Enum
+    public static bool TryGetItemSelected<T>(out T type) where T : Enum
     {
         ItemCollection<T> itemCollection = GetCollection<T>();
-        return itemCollection.GetItemSelected();
+        return itemCollection.TryGetItemSelected(out type);
     }
 
     public static void SetItemSelected<T>(T itemType) where T : Enum

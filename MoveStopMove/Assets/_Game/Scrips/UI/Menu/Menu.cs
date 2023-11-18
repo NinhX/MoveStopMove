@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
@@ -13,6 +12,6 @@ public class Menu : MonoBehaviour
         PlayerInventory.Init();
 
         uiManager.CloseAllPanel();
-        uiManager.OpenUI<PanelMenu>();
+        uiManager.OpenUI<UIShop>();
     }
 }

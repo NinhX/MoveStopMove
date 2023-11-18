@@ -34,13 +34,13 @@ public class Player : Character
     {
         base.InitModel();
 
-        WeaponType weaponType = PlayerInventory.GetItemSelected<WeaponType>();
+        PlayerInventory.TryGetItemSelected(out WeaponType weaponType);
         ChangeWeapon(weaponType);
-        HatType hatType = PlayerInventory.GetItemSelected<HatType>();
+        PlayerInventory.TryGetItemSelected(out HatType hatType);
         ChangeHat(hatType);
-        PantType pantType = PlayerInventory.GetItemSelected<PantType>();
+        PlayerInventory.TryGetItemSelected(out PantType pantType);
         ChangePant(pantType);
-        SkinType skinType = PlayerInventory.GetItemSelected<SkinType>();
+        PlayerInventory.TryGetItemSelected(out SkinType skinType);
         ChangeSkin(skinType);
     }
 

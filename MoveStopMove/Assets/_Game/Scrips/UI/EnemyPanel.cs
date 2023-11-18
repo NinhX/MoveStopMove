@@ -33,11 +33,6 @@ public class EnemyPanel : AbstractUICanvas
         OnInit();
     }
 
-    protected override void OnHiddenUI()
-    {
-        ResetAll();
-    }
-
     public override void OnInit()
     {
         cam = Camera.main;

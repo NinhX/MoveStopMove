@@ -7,16 +7,17 @@ public class WeaponScroll : ScrollView
     private AbstractListSkinScipableObject<WeaponType> listWeaponScripable;
     private WeaponType weaponType;
 
-    private void Awake()
-    {
-        listWeaponScripable = characterScripable.WeaponScripable;
-        AddContentScroll(listWeaponScripable.DictSkin, OnSetWeapon);
-    }
-
     public override void OnInit(Skin demo)
     {
         base.OnInit(demo);
-        weaponType = PlayerInventory.GetItemSelected<WeaponType>();
+
+        if (listWeaponScripable == null)
+        {
+            listWeaponScripable = characterScripable.WeaponScripable;
+            AddContentScroll(listWeaponScripable.DictSkin, OnSetWeapon);
+        }
+
+        PlayerInventory.TryGetItemSelected(out WeaponType weaponType);
         OnSetWeapon(weaponType);
     }
 

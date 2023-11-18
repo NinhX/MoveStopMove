@@ -7,16 +7,17 @@ public class PantScroll : ScrollView
     private AbstractListSkinScipableObject<PantType> listPantScripable;
     private PantType pantType;
 
-    private void Awake()
-    {
-        listPantScripable = characterScripable.PantScipable;
-        AddContentScroll(listPantScripable.DictSkin, OnSetPant);
-    }
-
     public override void OnInit(Skin demo)
     {
         base.OnInit(demo);
-        pantType = PlayerInventory.GetItemSelected<PantType>();
+
+        if (listPantScripable == null)
+        {
+            listPantScripable = characterScripable.PantScipable;
+            AddContentScroll(listPantScripable.DictSkin, OnSetPant);
+        }
+
+        PlayerInventory.TryGetItemSelected(out PantType pantType);
         OnSetPant(pantType);
     }
 

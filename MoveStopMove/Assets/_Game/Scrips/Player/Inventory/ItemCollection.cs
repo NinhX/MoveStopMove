@@ -6,7 +6,7 @@ using UnityEngine;
 public class ItemCollection<T> : AbstractCollection where T : Enum
 {
     public List<Item<T>> listItem = new();
-    public T itemSelected;
+    public Item<T> itemSelected;
 
     private Dictionary<T, Item<T>> dictItem = new();
     private readonly string KEY;
@@ -22,8 +22,8 @@ public class ItemCollection<T> : AbstractCollection where T : Enum
         PlayerPrefs.DeleteKey(KEY);
         listItem.Clear();
         dictItem.Clear();
-        itemSelected = default;
-        AddItem(new Item<T>(itemSelected));
+        itemSelected = null;
+        SaveDict();
     }
 
     public void AddItem(Item<T> item)
@@ -88,16 +88,23 @@ public class ItemCollection<T> : AbstractCollection where T : Enum
         return dictItem.ContainsKey(itemType);
     }
 
-    public T GetItemSelected()
+    public bool TryGetItemSelected(out T type)
     {
-        return itemSelected;
+        bool result = false;
+        type = default;
+        if (itemSelected != null)
+        {
+            type = itemSelected.type;
+            result = true;
+        }
+        return result;
     }
 
     public void SetItemSelected(T typeItem)
     {
         if (dictItem.ContainsKey(typeItem))
         {
-            itemSelected = typeItem;
+            itemSelected = GetItem(typeItem);
             SaveDict();
         }
     }
@@ -114,7 +121,7 @@ public class ItemCollection<T> : AbstractCollection where T : Enum
 
     private void LoadDict()
     {
-        string json = PlayerPrefs.GetString(KEY, "{}");
+        string json = PlayerPrefs.GetString(KEY);
         JsonUtility.FromJsonOverwrite(json, this);
         dictItem.Clear();
         for (int i = 0; i < listItem.Count; i++)
